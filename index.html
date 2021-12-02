@@ -1,28 +1,46 @@
-<!DOCTYPE html>
 <html>
 <head>
-<title>P5.js Test</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.4/p5.min.js"></script>
-<script>
-function setup() {
-  createCanvas(720, 400);
-  background(230);
-  strokeWeight(2);
-}
+	<title>Guessing Game by Akash Hegde
+	 </title>
+	<script>
+	var number = Math.floor(Math.random() * 100 + 1);
+	var tries = 0;
+	function newGame(){
+	 number = Math.floor(Math.random() * 100 + 1);	
+	 document.getElementById("guess").focus();
+	 document.getElementById("guess").select();
+	}
+	function checkGuess(){
+		var guess = document.getElementById("guess").value;
+		var msg = "";
+		tries++;
+		if (guess > number)
+			msg = guess + " was too high. Try Again.";
+		else if (guess < number)
+			msg = guess + " too low. Try again.";
+		else {
+			msg = guess + " was the number! You win!";
+			msg = msg + "Try a new game :).";
+			msg = msg + " You won in " + tries + " tries.";
 
-function draw() {
-  if (mouseIsPressed) {
-    stroke(255);
-  } else {
-    stroke(237, 34, 93);
-  }
-  line(mouseX - 66, mouseY, mouseX + 66, mouseY);
-  line(mouseX, mouseY - 66, mouseX, mouseY + 66);
-}
-
-</script>
+			newGame();
+		}
+		var output = document.getElementById("output");
+	 output.innerHTML = msg;
+	 document.getElementById("guess").focus();
+	 document.getElementById("guess").select();
+	}	
+	</script>
 </head>
-<body>
-<h1>Demo 3</h1>
+<body onload="newGame()" > 
+	<h1> Akash's New Guessing Game </h1>
+	<form onsubmit="checkGuess(); return false;">
+		Enter a number between 1 to 100:
+		<input type="text" id="guess" size="1" >
+		<button type="button" onclick="checkGuess()"> Guess! </button>
+	</form>
+	<h3 id="output">Guess a number and press the button.</h3>
 </body>
 </html>
+
+
